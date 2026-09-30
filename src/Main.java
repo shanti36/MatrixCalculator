@@ -18,6 +18,8 @@ public class Main {
             out.println("6. Transpose matrix_2");
             out.println("7. Sum of matrices");
             out.println("8. Multiply matrices");
+            out.println("9. Get determinant of matrix_1");
+            out.println("10. Get determinant of matrix_2");
             out.println("0. Exit");
             out.print("Choose option: ");
 
@@ -50,6 +52,14 @@ public class Main {
                 case 8:
                     Matrix mMul = MatrixCalculator.multiply(matrix1, matrix2);
                     mMul.print();
+                    break;
+                case 9:
+                    Complex mDet1 = MatrixCalculator.getDet(matrix1);
+                    out.println(mDet1);
+                    break;
+                case 10:
+                    Complex mDet2 = MatrixCalculator.getDet(matrix2);
+                    out.println(mDet2);
                     break;
                 case 0:
                     return;

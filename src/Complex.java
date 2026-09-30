@@ -25,6 +25,11 @@ public class Complex {
         return cAdd;
     }
 
+    public static Complex subtract(Complex c1, Complex c2) {
+        Complex cSub = new Complex(c1.getA() - c2.getA(), c1.getB() - c2.getB());
+        return cSub;
+    }
+
     public static Complex mul(Complex c1, Complex c2) {
         double a, b;
         a = c1.getA() * c2.getA() - c1.getB() * c2.getB();

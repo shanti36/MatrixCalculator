@@ -33,4 +33,41 @@ public class MatrixCalculator {
         }
         return mMul;
     }
+
+    public static Matrix getMinor(Matrix m, int rowSkip, int colSkip) {
+        Matrix newMatrix = new Matrix(m.getRows() - 1, m.getCols() - 1);
+
+        int rowMinor = 0;
+        for (int i = 0; i < m.getRows(); i++) {
+            if (i == rowSkip) {continue;}
+
+            int colMinor = 0;
+            for (int j = 0; j < m.getCols(); j++) {
+                if (j == colSkip) {continue;}
+                newMatrix.setNum(rowMinor, colMinor, m.getNum(i, j));
+                colMinor++;
+            }
+            rowMinor++;
+        }
+        return newMatrix;
+    }
+
+    public static Complex getDet(Matrix m) {
+        if (m.getRows() == 2) {
+            Complex i = Complex.subtract(Complex.mul(m.getNum(0, 0), m.getNum(1, 1)), Complex.mul(m.getNum(0, 1), m.getNum(1, 0)));
+            return i;
+        }
+
+        Complex sum = null;
+        if (m.getRows() > 2) {
+            sum = new Complex(0, 0);
+            Complex l = new Complex(-1.0, 0);
+
+            for (int k = 0; k < m.getCols(); k++) {
+                l = Complex.mul(l, new Complex(-1.0, 0));
+                sum = Complex.add(sum, Complex.mul(Complex.mul(m.getNum(0, k), l), MatrixCalculator.getDet(MatrixCalculator.getMinor(m, 0, k))));
+            }
+        }
+        return sum;
+    }
 }
