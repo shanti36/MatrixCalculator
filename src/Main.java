@@ -20,6 +20,7 @@ public class Main {
             out.println("8. Multiply matrices");
             out.println("9. Get determinant of matrix_1");
             out.println("10. Get determinant of matrix_2");
+            out.println("11. Divide matrices");
             out.println("0. Exit");
             out.print("Choose option: ");
 
@@ -60,6 +61,10 @@ public class Main {
                 case 10:
                     Complex mDet2 = MatrixCalculator.getDet(matrix2);
                     out.println(mDet2);
+                    break;
+                case 11:
+                    Matrix mDiv = MatrixCalculator.div(matrix1, matrix2);
+                    mDiv.print();
                     break;
                 case 0:
                     return;

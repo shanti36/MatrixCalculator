@@ -1,7 +1,7 @@
 public class MatrixCalculator {
     public static Matrix transpose(Matrix m) {
         Matrix mTrans = new Matrix(m.getCols(), m.getRows());
-        for (int i = 0; i < m.getRows(); i++){
+        for (int i = 0; i < m.getRows(); i++) {
             for (int j = 0; j < m.getCols(); j++) {
                 mTrans.setNum(j, i, m.getNum(i, j));
             }
@@ -11,9 +11,9 @@ public class MatrixCalculator {
 
     public static Matrix add(Matrix m1, Matrix m2) {
         Matrix mAdd = new Matrix(m1.getRows(), m1.getCols());
-        for (int i = 0; i < m1.getRows(); i++){
+        for (int i = 0; i < m1.getRows(); i++) {
             for (int j = 0; j < m1.getCols(); j++) {
-                Complex c = Complex.add(m1.getNum(i, j), m2.getNum(i,j));
+                Complex c = Complex.add(m1.getNum(i, j), m2.getNum(i, j));
                 mAdd.setNum(i, j, c);
             }
         }
@@ -39,11 +39,15 @@ public class MatrixCalculator {
 
         int rowMinor = 0;
         for (int i = 0; i < m.getRows(); i++) {
-            if (i == rowSkip) {continue;}
+            if (i == rowSkip) {
+                continue;
+            }
 
             int colMinor = 0;
             for (int j = 0; j < m.getCols(); j++) {
-                if (j == colSkip) {continue;}
+                if (j == colSkip) {
+                    continue;
+                }
                 newMatrix.setNum(rowMinor, colMinor, m.getNum(i, j));
                 colMinor++;
             }
@@ -53,6 +57,10 @@ public class MatrixCalculator {
     }
 
     public static Complex getDet(Matrix m) {
+        if (m.getRows() == 1) {
+            return m.getNum(0,0);
+        }
+
         if (m.getRows() == 2) {
             Complex i = Complex.subtract(Complex.mul(m.getNum(0, 0), m.getNum(1, 1)), Complex.mul(m.getNum(0, 1), m.getNum(1, 0)));
             return i;
@@ -69,5 +77,36 @@ public class MatrixCalculator {
             }
         }
         return sum;
+    }
+
+    public static Matrix div(Matrix m1, Matrix m2) {
+        Matrix mDiv = new Matrix(m1.getRows(), m1.getCols());
+
+        Complex det = MatrixCalculator.getDet(m2);
+
+        Matrix algMatrix = new Matrix(m2.getRows(), m2.getCols());
+        for (int i = 0; i < m2.getRows(); i++) {
+            for (int j = 0; j < m2.getCols(); j++) {
+                double sign = ((i+j)%2==0) ? 1.0 : -1.0;
+                Complex l = new Complex(sign, 0);
+                algMatrix.setNum(i, j, Complex.mul(l, MatrixCalculator.getDet(MatrixCalculator.getMinor(m2, i, j))));
+            }
+        }
+
+        Matrix tMatrix = MatrixCalculator.transpose(algMatrix);
+
+        double a = det.getA();
+        double b = det.getB();
+        Complex detDiv = new Complex(a / (a * a + b * b), (-1 * b) / (a * a + b * b));
+
+        for (int i = 0; i < m2.getRows(); i++) {
+            for (int j = 0; j < m2.getCols(); j++) {
+                tMatrix.setNum(i, j, Complex.mul(detDiv, tMatrix.getNum(i, j)));
+            }
+
+        }
+
+        Matrix fMatrix = MatrixCalculator.multiply(m1, tMatrix);
+        return fMatrix;
     }
 }
