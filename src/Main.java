@@ -24,55 +24,13 @@ public class Main {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    out.print("Enter the number of rows: ");
-                    int rows = scanner.nextInt();
-                    out.print("Enter the number of columns: ");
-                    int cols = scanner.nextInt();
-
-                    matrix1 = new Matrix(rows, cols);
-
-                    out.println("Enter the matrix numbers:");
-                    for (int i=0;i<rows;i++) {
-                        for (int j = 0; j < cols; j++) {
-                            double a, b;
-                            Complex num;
-
-                            out.print("Enter a: ");
-                            a = scanner.nextDouble();
-                            out.print("Enter b: ");
-                            b = scanner.nextDouble();
-
-                            num = new Complex(a, b);
-                            matrix1.setNum(i, j, num);
-                        }
-                    }
+                    matrix1 = Matrix.create();
                     break;
                 case 2:
                     matrix1.print();
                     break;
                 case 3:
-                    out.print("Enter the number of rows: ");
-                    int rows2 = scanner.nextInt();
-                    out.print("Enter the number of columns: ");
-                    int cols2 = scanner.nextInt();
-
-                    matrix2 = new Matrix(rows2, cols2);
-
-                    out.println("Enter the matrix numbers:");
-                    for (int i=0;i<rows2;i++) {
-                        for (int j = 0; j < cols2; j++) {
-                            double a, b;
-                            Complex num;
-
-                            out.print("Enter a: ");
-                            a = scanner.nextDouble();
-                            out.print("Enter b: ");
-                            b = scanner.nextDouble();
-
-                            num = new Complex(a, b);
-                            matrix2.setNum(i, j, num);
-                        }
-                    }
+                    matrix2 = Matrix.create();
                     break;
                 case 4:
                     matrix2.print();
