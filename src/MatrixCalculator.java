@@ -19,4 +19,18 @@ public class MatrixCalculator {
         }
         return mAdd;
     }
+
+    public static Matrix multiply(Matrix m1, Matrix m2) {
+        Matrix mMul = new Matrix(m1.getRows(), m2.getCols());
+        for (int m = 0; m < m1.getRows(); m++) {
+            for (int k = 0; k < m2.getCols(); k++) {
+                Complex sum = new Complex();
+                for (int n = 0; n < m1.getCols(); n++) {
+                    sum = Complex.add(sum, Complex.mul(m1.getNum(m, n), m2.getNum(n, k)));
+                }
+                mMul.setNum(m, k, sum);
+            }
+        }
+        return mMul;
+    }
 }

@@ -17,6 +17,7 @@ public class Main {
             out.println("5. Transpose matrix_1");
             out.println("6. Transpose matrix_2");
             out.println("7. Sum of matrices");
+            out.println("8. Multiply matrices");
             out.println("0. Exit");
             out.print("Choose option: ");
 
@@ -87,6 +88,10 @@ public class Main {
                 case 7:
                     Matrix mAdd = MatrixCalculator.add(matrix1, matrix2);
                     mAdd.print();
+                    break;
+                case 8:
+                    Matrix mMul = MatrixCalculator.multiply(matrix1, matrix2);
+                    mMul.print();
                     break;
                 case 0:
                     return;
