@@ -1,5 +1,8 @@
 public class MatrixCalculator {
     public static Matrix transpose(Matrix m) {
+        if (m == null) {
+            throw new IllegalArgumentException("The matrix cannot be null.");
+        }
         Matrix mTrans = new Matrix(m.getCols(), m.getRows());
         for (int i = 0; i < m.getRows(); i++) {
             for (int j = 0; j < m.getCols(); j++) {
@@ -10,6 +13,12 @@ public class MatrixCalculator {
     }
 
     public static Matrix add(Matrix m1, Matrix m2) {
+        if (m1 == null || m2 == null) {
+            throw new IllegalArgumentException("The matrix cannot be null.");
+        }
+        if (m1.getRows() != m2.getRows() || m1.getCols() != m2.getCols()) {
+            throw new IllegalArgumentException("The matrix dimensions do not match.");
+        }
         Matrix mAdd = new Matrix(m1.getRows(), m1.getCols());
         for (int i = 0; i < m1.getRows(); i++) {
             for (int j = 0; j < m1.getCols(); j++) {
@@ -21,6 +30,12 @@ public class MatrixCalculator {
     }
 
     public static Matrix multiply(Matrix m1, Matrix m2) {
+        if (m1 == null || m2 == null) {
+            throw new IllegalArgumentException("The matrix cannot be null.");
+        }
+        if (m1.getCols() != m2.getRows()) {
+            throw new IllegalArgumentException("The matrix dimensions do not match.");
+        }
         Matrix mMul = new Matrix(m1.getRows(), m2.getCols());
         for (int m = 0; m < m1.getRows(); m++) {
             for (int k = 0; k < m2.getCols(); k++) {
@@ -57,6 +72,12 @@ public class MatrixCalculator {
     }
 
     public static Complex getDet(Matrix m) {
+        if (m == null) {
+            throw new IllegalArgumentException("The matrix cannot be null.");
+        }
+        if (m.getCols() != m.getRows()) {
+            throw new IllegalArgumentException("The matrix is not square.");
+        }
         if (m.getRows() == 1) {
             return m.getNum(0,0);
         }
@@ -80,9 +101,15 @@ public class MatrixCalculator {
     }
 
     public static Matrix div(Matrix m1, Matrix m2) {
+        if (m1 == null || m2 == null) {
+            throw new IllegalArgumentException("The matrix cannot be null.");
+        }
         Matrix mDiv = new Matrix(m1.getRows(), m1.getCols());
 
         Complex det = MatrixCalculator.getDet(m2);
+        if (det.getA() == 0 && det.getB() == 0) {
+            throw new ArithmeticException("The determinant cannot be zero.");
+        }
 
         Matrix algMatrix = new Matrix(m2.getRows(), m2.getCols());
         for (int i = 0; i < m2.getRows(); i++) {
